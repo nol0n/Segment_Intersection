@@ -36,9 +36,9 @@ bool Service::intersectEffective(Segment* segmentsArray, size_t size_)
 
 	for (int i = 0; i < size; i++)
 	{
-		Segment::currentX = segmentsArray[i].points[segmentsArray[i].CMP_POINT].x;
+		Segment::updateCurrentX(segmentsArray[i]);
 
-		if (segmentsArray[i].CMP_POINT == Segment::START)
+		if (segmentsArray[i].getCmpPoint() == Segment::START)
 		{
 			tree.insert(segmentsArray[i]);
 			intersect = segmentsArray[i].intersects(tree.findPredecessor(segmentsArray[i]));
@@ -46,7 +46,7 @@ bool Service::intersectEffective(Segment* segmentsArray, size_t size_)
 			intersect = segmentsArray[i].intersects(tree.findSuccessor(segmentsArray[i]));
 			if (intersect) break;
 		}
-		else if (segmentsArray[i].CMP_POINT == Segment::END)
+		else if (segmentsArray[i].getCmpPoint() == Segment::END)
 		{
 			intersect = tree.findPredecessor(segmentsArray[i]).intersects(tree.findSuccessor(segmentsArray[i]));
 			if (intersect) break;

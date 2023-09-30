@@ -60,6 +60,16 @@ Segment::Segment(const Segment& item)
 	CMP_POINT = item.CMP_POINT;
 }
 
+int Segment::getCmpPoint()
+{
+	return this->CMP_POINT;
+}
+
+void Segment::updateCurrentX(const Segment& item)
+{
+	currentX = item.points[item.CMP_POINT].x;
+}
+
 void Segment::findCoefficients()
 {
 	a = (points[END].y - points[START].y) / (points[END].x - points[START].x);
