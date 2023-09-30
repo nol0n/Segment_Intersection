@@ -3,7 +3,6 @@
 #include <string>
 #include <chrono>
 #include <ctime>
-#include <thread>
 
 //       ↑
 // используются только в тестах 
@@ -22,14 +21,10 @@ void test4();
 
 int main()
 {
-	std::cout << "first test" << std::endl;
-	test1();
-	std::cout << "second test" << std::endl;
-	test2();
-	std::cout << "third test" << std::endl;
-	test3();
-	std::cout << "fourth test" << std::endl;
-	test4();
+	std::cout << "first test" << std::endl; test1();
+	std::cout << "second test" << std::endl; test2();
+	std::cout << "third test" << std::endl;	test3();
+	std::cout << "fourth test" << std::endl; test4();
 
 	return 0;
 }
@@ -62,8 +57,6 @@ void test1()
 		duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 		resultsEffective << i << " " << duration.count() << std::endl;
-
-		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	resultsNaive.close();
@@ -132,8 +125,6 @@ void test3()
 		duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 		resultsEffective << i << " " << duration.count() << std::endl;
-
-		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	resultsNaive.close();
