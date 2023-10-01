@@ -3,15 +3,18 @@
 
 class Point
 {
-public:
+private:
 	double x;
 	double y;
-
+public:
 	Point();
 	Point(double x, double y);
 
 	static bool compareByX(const Point& x, const Point& y);
 	static bool compareByY(const Point& x, const Point& y);
+
+	double getX() const;
+	double getY() const;
 
 	bool operator<(const Point& item);
 	bool operator>(const Point& item);

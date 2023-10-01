@@ -18,7 +18,7 @@ double max(double a, double b)
 }
 
 double area(Point a, Point b, Point c) {
-	return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+	return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
 }
 
 bool boundingBox(double a, double b, double c, double d) {
@@ -67,13 +67,13 @@ int Segment::getCmpPoint()
 
 void Segment::updateCurrentX(const Segment& item)
 {
-	currentX = item.points[item.CMP_POINT].x;
+	currentX = item.points[item.CMP_POINT].getX();
 }
 
 void Segment::findCoefficients()
 {
-	a = (points[END].y - points[START].y) / (points[END].x - points[START].x);
-	b = points[START].y - a * points[START].x;
+	a = (points[END].getY() - points[START].getY()) / (points[END].getX() - points[START].getX());
+	b = points[START].getY() - a * points[START].getY();
 }
 
 double Segment::calculateY(double x) const
@@ -85,8 +85,8 @@ bool Segment::intersects(const Segment& other)
 {
 	if (other.CMP_POINT != -1)
 	{
-		return (boundingBox(points[START].x, points[END].x, other.points[START].x, other.points[END].x) &&
-			boundingBox(points[START].y, points[END].y, other.points[START].y, other.points[END].y) &&
+		return (boundingBox(points[START].getX(), points[END].getX(), other.points[START].getX(), other.points[END].getX()) &&
+			boundingBox(points[START].getY(), points[END].getY(), other.points[START].getY(), other.points[END].getY()) &&
 			(area(points[START], points[END], other.points[START]) * area(points[START], points[END], other.points[END]) <= 0) &&
 			(area(other.points[START], other.points[END], points[START]) * area(other.points[START], other.points[END], points[END]) <= 0));
 	}
@@ -98,7 +98,7 @@ bool Segment::intersects(const Segment& other)
 
 bool Segment::compareByX(const Segment& x, const Segment& y)
 {
-	return (x.points[x.CMP_POINT].x < y.points[y.CMP_POINT].x);
+	return (x.points[x.CMP_POINT].getX() < y.points[y.CMP_POINT].getX());
 }
 
 Segment& Segment::operator=(const Segment& item)
