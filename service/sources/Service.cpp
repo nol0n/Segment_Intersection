@@ -7,12 +7,8 @@ bool Service::intersectNaive(Segment* segmentsArray, size_t size_)
 	bool intersect = false;
 	for (int i = 0; i < size - 1; i += 2)
 	{
-		for (int j = 0; j < size - 1; j += 2)
+		for (int j = i + 2; j < size - 1; j += 2)
 		{
-			if (i == j)
-			{
-				continue;
-			}
 			if (segmentsArray[i].intersects(segmentsArray[j]))
 			{
 				intersect = true;

@@ -16,6 +16,12 @@ public:
 
 	template <typename T>
 	static void sort(T* arr, int low, int high, bool (*comp)(const T&, const T&));
+	template <typename T>
+	static void swap(T& x, T& y);
+	template <typename T>
+	static T min(T& x, T& y);
+	template <typename T>
+	static T max(T& x, T& y);
 
 	static Segment* randomSegments(size_t size);
 	static Segment* randomSegments(size_t size, int K);
@@ -25,11 +31,23 @@ private:
 };
 
 template <typename T>
-void swap(T& x, T& y)
+void Service::swap(T& x, T& y)
 {
 	T tmp = x;
 	x = y;
 	y = tmp;
+}
+
+template <typename T>
+T Service::min(T& x, T& y)
+{
+	return (x < y) ? x : y;
+}
+
+template <typename T>
+T Service::max(T& x, T& y)
+{
+	return (x > y) ? x : y;
 }
 
 template <typename T>
@@ -46,7 +64,7 @@ int partition(T* arr, int low, int high, T pivot, bool (*comp)(const T&, const T
 		}
 		else
 		{
-			swap(arr[i], arr[j]);
+			Service::swap(arr[i], arr[j]);
 			i++;
 			j++;
 		}
