@@ -1,30 +1,14 @@
+#include "Service.h"
 #include "Segment.h"
-
-void swap(double& a, double& b)
-{
-	double tmp = a;
-	a = b;
-	b = a;
-}
-
-double min(double a, double b)
-{
-	return (a < b) ? a : b;
-}
-
-double max(double a, double b)
-{
-	return (a > b) ? a : b;
-}
 
 double area(Point a, Point b, Point c) {
 	return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
 }
 
 bool boundingBox(double a, double b, double c, double d) {
-	if (a > b) swap(a, b);
-	if (c > d) swap(c, d);
-	return max(a, c) <= min(b, d);
+	if (a > b) Service::swap(a, b);
+	if (c > d) Service::swap(c, d);
+	return Service::max(a, c) <= Service::min(b, d);
 }
 
 Segment::Segment()
