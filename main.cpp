@@ -21,10 +21,10 @@ void test4();
 
 int main()
 {
-	std::cout << "first test" << std::endl; test1();
-	std::cout << "second test" << std::endl; test2();
+	//std::cout << "first test" << std::endl; test1();
+	//std::cout << "second test" << std::endl; test2();
 	std::cout << "third test" << std::endl;	test3();
-	std::cout << "fourth test" << std::endl; test4();
+	//std::cout << "fourth test" << std::endl; test4();
 
 	return 0;
 }
@@ -36,7 +36,7 @@ void test1()
 	std::ofstream resultsNaive(filePathNaive);
 	std::ofstream resultsEffective(filePathEffective);
 
-	for (int i = 1; i <= 10001; i += 100)
+	for (int i = 1; i <= 10001; i += 10)
 	{
 		Segment* dataSample = Service::randomSegments(i);
 
@@ -70,7 +70,7 @@ void test2()
 	std::ofstream resultsNaive(filePathNaive);
 	std::ofstream resultsEffective(filePathEffective);
 
-	for (int i = 1; i <= 10001; i += 100)
+	for (int i = 1; i <= 10001; i += 10)
 	{
 		Segment* dataSample = Service::randomSegments(10003, i);
 
@@ -99,12 +99,12 @@ void test2()
 
 void test3()
 {
-	std::string filePathNaive = "test/test_naive_3" + std::string(".txt");
-	std::string filePathEffective = "test/test_effective_3" + std::string(".txt");
+	std::string filePathNaive = "test_naive_3" + std::string(".txt");
+	std::string filePathEffective = "test_effective_3" + std::string(".txt");
 	std::ofstream resultsNaive(filePathNaive);
 	std::ofstream resultsEffective(filePathEffective);
 
-	for (int i = 1; i <= 10001; i += 100)
+	for (int i = 1; i <= 10001; i += 10)
 	{
 		Segment* dataSample = Service::randomSegments(i, double(0.001));
 
@@ -133,12 +133,12 @@ void test3()
 
 void test4()
 {
-	std::string filePathNaive = "test/test_naive_3" + std::string(".txt");
-	std::string filePathEffective = "test/test_effective_3" + std::string(".txt");
+	std::string filePathNaive = "test_naive_4" + std::string(".txt");
+	std::string filePathEffective = "test_effective_4" + std::string(".txt");
 	std::ofstream resultsNaive(filePathNaive);
 	std::ofstream resultsEffective(filePathEffective);
 
-	for (int i = 10000; i >= 100; i -= 100)
+	for (int i = 10000; i >= 100; i -= 10)
 	{
 		Segment* dataSample = Service::randomSegments(10000, double(1 / i));
 
