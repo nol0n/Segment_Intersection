@@ -22,6 +22,16 @@ bool Point::compareByY(const Point& x, const Point& y)
 	return (x.y < y.y);
 }
 
+double Point::getX() const
+{
+	return x;
+}
+
+double Point::getY() const
+{
+	return y;
+}
+
 bool Point::operator<(const Point& item)
 {
 	return this->y < item.y;
