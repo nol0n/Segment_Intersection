@@ -38,3 +38,5 @@
 # Other
 .vs/
 *.json
+PythonGraph
+*.docx

@@ -56,10 +56,9 @@ void Segment::updateCurrentX(const Segment& item)
 
 void Segment::findCoefficients()
 {
-	a = (points[END].getY() - points[START].getY()) / (points[END].getX() - points[START].getX());
-	b = points[START].getY() - a * points[START].getY();
+	a = (points[START].getY() - points[END].getY()) / (points[START].getX() - points[END].getX());
+	b = ((points[START].getX() * points[END].getY()) - (points[END].getX() * points[START].getY())) / (points[START].getX() - points[END].getX());
 }
-
 double Segment::calculateY(double x) const
 {
 	return (a * x + b);

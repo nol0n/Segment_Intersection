@@ -77,7 +77,7 @@ void generatePoints1(double& x1, double& x2, double& y1, double& y2)
 
 Segment* Service::randomSegments(size_t size)
 {
-	Segment* SegmentsArray = new Segment[size * 2]();
+ 	Segment* SegmentsArray = new Segment[size * 2]();
 
 	std::srand((unsigned int)std::time(nullptr));
 

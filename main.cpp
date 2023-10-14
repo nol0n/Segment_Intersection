@@ -12,7 +12,7 @@
 #include "Service.h"
 #include "TwoThreeTree.h"
 
-double Segment::currentX = -1;
+double Segment::currentX  = -1;
 
 void test1();
 void test2();
@@ -21,10 +21,10 @@ void test4();
 
 int main()
 {
-	//std::cout << "first test" << std::endl; test1();
-	//std::cout << "second test" << std::endl; test2();
+	std::cout << "first test" << std::endl; test1();
+	std::cout << "second test" << std::endl; test2();
 	std::cout << "third test" << std::endl;	test3();
-	//std::cout << "fourth test" << std::endl; test4();
+	std::cout << "fourth test" << std::endl; test4();
 
 	return 0;
 }
