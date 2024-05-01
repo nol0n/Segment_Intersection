@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 project(segment)
 
-set(SRC
+set(SOURCES
     sources/segment.cpp
 )
 
@@ -11,7 +11,7 @@ set(HEADERS
 )
 
 add_library(segment
-    ${SRC}
+    ${SOURCES}
     ${HEADERS}
 )
 
