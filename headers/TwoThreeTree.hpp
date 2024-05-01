@@ -1,21 +1,23 @@
 #pragma once
-#include "Node.h"
+
+#include "Node.hpp"
 
 template <typename T>
 class TwoThreeTree
 {
 private:
-    Node<T>* root;
+    Node<T> *root;
 
-    Node<T>* internalInsert(Node<T>* root, T key);
-    Node<T>* internalSearch(Node<T>* root, T key);
-    Node<T>* internalRemove(Node<T>* root, T key);
-    Node<T>* findMin(Node<T>* root);
-    Node<T>* findMax(Node<T>* root);
-    Node<T>* fix(Node<T>* leaf);
-    Node<T>* merge(Node<T>* leaf);
-    Node<T>* split(Node<T>* item);
-    Node<T>* redistribute(Node<T>* leaf);
+    Node<T> *internalInsert(Node<T> *root, T key);
+    Node<T> *internalSearch(Node<T> *root, T key);
+    Node<T> *internalRemove(Node<T> *root, T key);
+    Node<T> *findMin(Node<T> *root);
+    Node<T> *findMax(Node<T> *root);
+    Node<T> *fix(Node<T> *leaf);
+    Node<T> *merge(Node<T> *leaf);
+    Node<T> *split(Node<T> *item);
+    Node<T> *redistribute(Node<T> *leaf);
+
 public:
     TwoThreeTree<T>();
 
@@ -31,12 +33,12 @@ template <typename T>
 TwoThreeTree<T>::TwoThreeTree()
 {
     root = nullptr;
-} 
+}
 
 template <typename T>
 T TwoThreeTree<T>::findSuccessor(T key)
 {
-    Node<T>* keyNode = internalSearch(root, key);
+    Node<T> *keyNode = internalSearch(root, key);
     T value = T();
 
     if (keyNode != nullptr)
@@ -49,9 +51,9 @@ T TwoThreeTree<T>::findSuccessor(T key)
             }
             else if ((keyNode->size == 2 && key == keyNode->key[1]) || keyNode->size == 1)
             {
-                while (keyNode->parent != nullptr && 
-                     ((keyNode->parent->size == 2 && keyNode->parent->third == keyNode) || 
-                      (keyNode->parent->size == 1 && keyNode->parent->second == keyNode)))
+                while (keyNode->parent != nullptr &&
+                       ((keyNode->parent->size == 2 && keyNode->parent->third == keyNode) ||
+                        (keyNode->parent->size == 1 && keyNode->parent->second == keyNode)))
                 {
                     keyNode = keyNode->parent;
                 }
@@ -87,7 +89,7 @@ T TwoThreeTree<T>::findSuccessor(T key)
 template <typename T>
 T TwoThreeTree<T>::findPredecessor(T key)
 {
-    Node<T>* keyNode = internalSearch(root, key);
+    Node<T> *keyNode = internalSearch(root, key);
     T value = T();
 
     if (keyNode != nullptr)
@@ -155,7 +157,7 @@ bool TwoThreeTree<T>::search(T key)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::internalInsert(Node<T>* root, T key)
+Node<T> *TwoThreeTree<T>::internalInsert(Node<T> *root, T key)
 {
     if (root == nullptr)
     {
@@ -183,42 +185,46 @@ Node<T>* TwoThreeTree<T>::internalInsert(Node<T>* root, T key)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::internalSearch(Node<T>* root, T key)
+Node<T> *TwoThreeTree<T>::internalSearch(Node<T> *root, T key)
 {
+    Node<T> *pNode = nullptr;
+
     if (root == nullptr)
     {
-        return nullptr;
+        pNode = nullptr;
     }
 
     if (root->find(key))
     {
-        return root;
+        pNode = root;
     }
     else if (key < root->key[0])
     {
-        return internalSearch(root->first, key);
+        pNode = internalSearch(root->first, key);
     }
     else if ((root->size == 2) && (key < root->key[1]) || (root->size == 1))
     {
-        return internalSearch(root->second, key);
+        pNode = internalSearch(root->second, key);
     }
     else if (root->size == 2)
     {
-        return internalSearch(root->third, key);
+        pNode = internalSearch(root->third, key);
     }
+
+    return pNode;
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::internalRemove(Node<T>* root, T key)
+Node<T> *TwoThreeTree<T>::internalRemove(Node<T> *root, T key)
 {
-    Node<T>* item = internalSearch(root, key);
+    Node<T> *item = internalSearch(root, key);
 
     if (!item)
     {
         return root;
     }
 
-    Node<T>* min = nullptr;
+    Node<T> *min = nullptr;
     if (item->key[0] == key)
     {
         min = findMin(item->second);
@@ -230,7 +236,7 @@ Node<T>* TwoThreeTree<T>::internalRemove(Node<T>* root, T key)
 
     if (min)
     {
-        T& z = (key == item->key[0] ? item->key[0] : item->key[1]);
+        T &z = (key == item->key[0] ? item->key[0] : item->key[1]);
         item->swap(z, min->key[0]);
         item = min;
     }
@@ -240,7 +246,7 @@ Node<T>* TwoThreeTree<T>::internalRemove(Node<T>* root, T key)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::findMin(Node<T>* root)
+Node<T> *TwoThreeTree<T>::findMin(Node<T> *root)
 {
     if (root == nullptr)
     {
@@ -257,7 +263,7 @@ Node<T>* TwoThreeTree<T>::findMin(Node<T>* root)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::findMax(Node<T>* root)
+Node<T> *TwoThreeTree<T>::findMax(Node<T> *root)
 {
     if (root == nullptr)
     {
@@ -277,8 +283,8 @@ Node<T>* TwoThreeTree<T>::findMax(Node<T>* root)
     }
 }
 
-template<typename T>
-Node<T>* TwoThreeTree<T>::fix(Node<T>* leaf)
+template <typename T>
+Node<T> *TwoThreeTree<T>::fix(Node<T> *leaf)
 {
     if (leaf->size == 0 && leaf->parent == nullptr)
     {
@@ -297,7 +303,7 @@ Node<T>* TwoThreeTree<T>::fix(Node<T>* leaf)
         }
     }
 
-    Node<T>* parent = leaf->parent;
+    Node<T> *parent = leaf->parent;
     if (parent->first->size == 2 || parent->second->size == 2 || parent->size == 2)
     {
         leaf = redistribute(leaf);
@@ -315,9 +321,9 @@ Node<T>* TwoThreeTree<T>::fix(Node<T>* leaf)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::merge(Node<T>* leaf)
+Node<T> *TwoThreeTree<T>::merge(Node<T> *leaf)
 {
-    Node<T>* parent = leaf->parent;
+    Node<T> *parent = leaf->parent;
 
     if (parent->first == leaf)
     {
@@ -368,7 +374,7 @@ Node<T>* TwoThreeTree<T>::merge(Node<T>* leaf)
 
     if (parent->parent == nullptr)
     {
-        Node<T>* tmp = nullptr;
+        Node<T> *tmp = nullptr;
         if (parent->first != nullptr)
         {
             tmp = parent->first;
@@ -385,15 +391,15 @@ Node<T>* TwoThreeTree<T>::merge(Node<T>* leaf)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::split(Node<T>* item)
+Node<T> *TwoThreeTree<T>::split(Node<T> *item)
 {
     if (item->size < 3)
     {
         return item;
     }
 
-    Node<T>* x = new Node<T>(item->key[0], item->first, item->second, nullptr, nullptr, item->parent);
-    Node<T>* y = new Node<T>(item->key[2], item->third, item->fourth, nullptr, nullptr, item->parent);
+    Node<T> *x = new Node<T>(item->key[0], item->first, item->second, nullptr, nullptr, item->parent);
+    Node<T> *y = new Node<T>(item->key[2], item->third, item->fourth, nullptr, nullptr, item->parent);
     if (x->first)
     {
         x->first->parent = x;
@@ -447,7 +453,7 @@ Node<T>* TwoThreeTree<T>::split(Node<T>* item)
             item->parent->third = x;
         }
 
-        Node<T>* tmp = item->parent;
+        Node<T> *tmp = item->parent;
         delete item;
         return tmp;
     }
@@ -461,12 +467,12 @@ Node<T>* TwoThreeTree<T>::split(Node<T>* item)
 }
 
 template <typename T>
-Node<T>* TwoThreeTree<T>::redistribute(Node<T>* leaf)
+Node<T> *TwoThreeTree<T>::redistribute(Node<T> *leaf)
 {
-    Node<T>* parent = leaf->parent;
-    Node<T>* first = parent->first;
-    Node<T>* second = parent->second;
-    Node<T>* third = parent->third;
+    Node<T> *parent = leaf->parent;
+    Node<T> *first = parent->first;
+    Node<T> *second = parent->second;
+    Node<T> *third = parent->third;
 
     if ((parent->size == 2) && (first->size < 2) && (second->size < 2) && (third->size < 2))
     {
